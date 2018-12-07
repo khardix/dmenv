@@ -55,6 +55,23 @@ pub enum Error {
     MultipleBumps {
         name: String,
     },
+
+    MultipleValues {
+        key: String,
+    },
+
+    MalformedSetupCfg {
+        details: String,
+    },
+
+    SectionNotFound {
+        name: String,
+    },
+
+    KeyNotFound {
+        section: String,
+        key: String,
+    },
 }
 
 impl std::fmt::Display for Error {
@@ -104,12 +121,19 @@ impl std::fmt::Display for Error {
             Error::FileExists { path } => format!("{} already exist", path.to_string_lossy()),
 
             Error::MalformedLock { line, details } => {
-                format!("Malformed lock at line {}\n:{}", line, details)
+                format!("malformed lock at line {}\n:{}", line, details)
             }
             Error::NothingToBump { name } => format!("'{}' not found in lock", name),
             Error::MultipleBumps { name } => {
                 format!("multiple matches found for '{}' in lock", name)
             }
+
+            Error::MalformedSetupCfg { details } => format!("malformed setup.cfg: {}", details),
+            Error::SectionNotFound { name } => format!("section '{}' not found", name),
+            Error::KeyNotFound { section, key } => {
+                format!("key '{}' not found in section '{}'", key, section)
+            }
+            Error::MultipleValues { key } => format!("multiple values found for key '{}'", key),
         };
         write!(f, "{}", message)
     }

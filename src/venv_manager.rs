@@ -10,6 +10,7 @@ use crate::dependencies::FrozenDependency;
 use crate::error::*;
 use crate::lock::Lock;
 use crate::python_info::PythonInfo;
+use crate::setup_cfg::SetupCfg;
 
 pub const LOCK_FILE_NAME: &str = "requirements.lock";
 
@@ -41,19 +42,44 @@ impl VenvManager {
     pub fn new(project_path: std::path::PathBuf, python_info: PythonInfo) -> Result<Self, Error> {
         let lock_path = project_path.join(LOCK_FILE_NAME);
         let setup_py_path = project_path.join("setup.py");
-        let venv_path = if let Ok(env_var) = std::env::var("VIRTUAL_ENV") {
-            std::path::PathBuf::from(env_var)
-        } else {
-            project_path.join(".venv").join(&python_info.version)
-        };
+        let setup_cfg_path = project_path.join("setup.cfg");
+
+        let venv_path = Self::get_venv_path(&project_path, &python_info);
         let paths = Paths {
             project: project_path,
             venv: venv_path,
             lock: lock_path,
             setup_py: setup_py_path,
+            setup_cfg: setup_cfg_path,
         };
         let venv_manager = VenvManager { paths, python_info };
         Ok(venv_manager)
+    }
+
+    fn get_venv_path(
+        project_path: &std::path::PathBuf,
+        python_info: &PythonInfo,
+    ) -> std::path::PathBuf {
+        if let Ok(env_var) = std::env::var("VIRTUAL_ENV") {
+            return std::path::PathBuf::from(env_var);
+        }
+
+        let setup_cfg_path = project_path.join("setup.cfg");
+        let python_version = &python_info.version;
+        let project_name = Self::get_project_name(&setup_cfg_path);
+        let subfolder = match project_name {
+            Ok(p) => format!("{}-{}", python_version, p),
+            Err(e) => {
+                print_warning(&e.to_string());
+                python_version.to_string()
+            }
+        };
+        project_path.join(".venv").join(subfolder)
+    }
+
+    fn get_project_name(setup_cfg_path: &std::path::PathBuf) -> Result<String, Error> {
+        let setup_cfg = SetupCfg::from_path(&setup_cfg_path)?;
+        setup_cfg.get_single("metadata", "name")
     }
 
     pub fn clean(&self) -> Result<(), Error> {
@@ -432,4 +458,5 @@ struct Paths {
     venv: std::path::PathBuf,
     lock: std::path::PathBuf,
     setup_py: std::path::PathBuf,
+    setup_cfg: std::path::PathBuf,
 }
