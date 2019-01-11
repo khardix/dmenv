@@ -72,7 +72,9 @@
     
         <ul>
         
-            <li><a class="toctree-l3" href="#how_do_i_upgrade_a_dependency">How do I upgrade a dependency?</a></li>
+            <li><a class="toctree-l3" href="#im_on_debian_and_ive_got_errors_when_running_bdist_wheel">I'm on Debian, and I've got errors when running bdist_wheel</a></li>
+        
+            <li><a class="toctree-l3" href="#how_do_i_upgrade_dependencies">How do I upgrade dependencies?</a></li>
         
             <li><a class="toctree-l3" href="#how_do_i_depend_on_a_git_specific_repobranch">How do I depend on a git specific repo/branch?</a></li>
         
@@ -124,13 +126,20 @@
             <div class="section">
               
                 <h1 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h1>
-<h4 id="how_do_i_upgrade_a_dependency">How do I upgrade a dependency?<a class="headerlink" href="#how_do_i_upgrade_a_dependency" title="Permanent link">&para;</a></h4>
-<p>Just run <code>dmenv lock</code> again. If something breaks, either fix your code or
-use more precise version specifiers in <code>setup.py</code>, like <code>foobar &lt; 2.0</code>.</p>
+<h4 id="im_on_debian_and_ive_got_errors_when_running_bdist_wheel">I'm on Debian, and I've got errors when running <code>bdist_wheel</code><a class="headerlink" href="#im_on_debian_and_ive_got_errors_when_running_bdist_wheel" title="Permanent link">&para;</a></h4>
+<p>This is an <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=917006">upstream bug</a>.
+As a workaround, you can install virtualenv with <code>python3 -m pip install virtualenv --user</code>
+and then set the <code>DMENV_NO_VENV_STDLIB</code> environment variable.</p>
+<h4 id="how_do_i_upgrade_dependencies">How do I upgrade dependencies?<a class="headerlink" href="#how_do_i_upgrade_dependencies" title="Permanent link">&para;</a></h4>
+<p>Two solutions:</p>
+<ul>
+<li>Patch the <code>requirements.lock</code> directly;</li>
+<li>Or run <code>dmenv clean &amp;&amp; dmenv lock</code> again. If something breaks, either fix your code or
+use more precise version specifiers in <code>setup.py</code>, like <code>foobar &lt; 2.0</code>.</li>
+</ul>
 <h4 id="how_do_i_depend_on_a_git_specific_repobranch">How do I depend on a git specific repo/branch?<a class="headerlink" href="#how_do_i_depend_on_a_git_specific_repobranch" title="Permanent link">&para;</a></h4>
-<p>Edit the <code>requirements.lock</code> by hand like this:</p>
-<pre><code>foo==0.1
-https://gitlab.com/foo/bar@my-branch
+<p>Edit the <code>requirements.lock</code> by hand like this, where the part after <code>#egg=</code> matches the name of the dependency in the <code>setup.py</code></p>
+<pre><code class="text">https://gitlab.com/foo/bar@my-branch#egg=bar
 </code></pre>
 
 <p>Note that the change will be lost if you re-run <code>dmenv lock</code>: see <a href="https://github.com/TankerHQ/dmenv/issues/7">#7</a>
@@ -143,8 +152,8 @@ for details.</p>
 <h4 id="how_do_i_use_an_other_python_interpreter">How do I use an other Python interpreter?<a class="headerlink" href="#how_do_i_use_an_other_python_interpreter" title="Permanent link">&para;</a></h4>
 <p>You can either:</p>
 <ul>
-<li>Modify your PATH environment variable so that it appears there. (For instance, with <a href="https://github.com/pyenv/pyenv">pyenv</a>).</li>
-<li>Prefix all the <code>dmenv</code> commands with a <code>--python /path/to/other/python</code> flag.</li>
+<li>modify your PATH environment variable so that it appears there. (For instance, with <a href="https://github.com/pyenv/pyenv">pyenv</a>).</li>
+<li>or prefix all the <code>dmenv</code> commands with <code>--python /path/to/other/python</code>.</li>
 </ul>
 <h4 id="why_rust">Why Rust?<a class="headerlink" href="#why_rust" title="Permanent link">&para;</a></h4>
 <ul>

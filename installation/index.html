@@ -122,15 +122,19 @@
                 <h1 id="installing_dmenv">Installing dmenv<a class="headerlink" href="#installing_dmenv" title="Permanent link">&para;</a></h1>
 <h2 id="using_the_pre-compiled_binaries">Using the pre-compiled binaries<a class="headerlink" href="#using_the_pre-compiled_binaries" title="Permanent link">&para;</a></h2>
 <p>The easiest way is to download the matching binary from the <a href="https://github.com/TankerHQ/dmenv/releases">releases page</a> for your platform and put it
-somewhere on in your $PATH:</p>
+somewhere on in your $PATH.</p>
 <h3 id="linux_macos">Linux, macOS<a class="headerlink" href="#linux_macos" title="Permanent link">&para;</a></h3>
 <pre><code class="console">cd ~/.local/bin
-curl-L https://github.com/TankerHQ/dmenv/releases/download/v&lt;version&gt;/dmenv-&lt;platform&gt; -o dmenv
+curl --fail -L https://github.com/TankerHQ/dmenv/releases/download/v&lt;version&gt;/dmenv-&lt;platform&gt; -o dmenv
 chmod u+x dmenv
 </code></pre>
 
+<p>Note: replace $PLATFORM by your current platform: <code>linux</code>, or <code>osx</code>.</p>
 <h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h3>
-<p>Download the <code>dmenv-windows.exe</code> file and save it for instance in <code>c:\path\to\python\Scripts\dmenv.exe</code>.</p>
+<p>Download the <code>dmenv-windows.exe</code> <a href="https://github.com/TankerHQ/dmenv/releases">from the release
+page</a> and save it for instance in
+<code>c:\path\to\python\Scripts\dmenv.exe</code>. (This folder should already be in you PATH if you
+used the default settings when installing Python).</p>
 <h2 id="installing_from_source">Installing from source<a class="headerlink" href="#installing_from_source" title="Permanent link">&para;</a></h2>
 <p>If you prefer, you can also <a href="https://www.rust-lang.org/en-US/install.html">install rust</a> and install dmenv with <code>cargo install dmenv</code>.</p>
               
