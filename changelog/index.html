@@ -180,29 +180,29 @@
                 <h1 id="090">0.9.0<a class="headerlink" href="#090" title="Permanent link">&para;</a></h1>
 <ul>
 <li>
-<p>Fix #54: rename <code>--cwd</code> option to <code>--project</code>.</p>
+<p>Fix <a href="https://github.com/TankerHQ/dmenv/issues/54">#54</a>: rename <code>--cwd</code> option to <code>--project</code>.</p>
 </li>
 <li>
-<p>Avoid blindly overwriting the <code>requirements.lock</code> file when running
-  <code>dmenv lock</code>. See #11 and #7 for background.</p>
+<p>Avoid blindly overwriting the <code>requirements.lock</code> file when running.
+  <code>dmenv lock</code>. See <a href="https://github.com/TankerHQ/dmenv/issues/11">#11</a> and <a href="https://github.com/TankerHQ/dmenv/issues/7">#7</a> for background.</p>
 </li>
 </ul>
 <h1 id="084">0.8.4<a class="headerlink" href="#084" title="Permanent link">&para;</a></h1>
 <ul>
-<li>Fix #49: return code was always 0 when using <code>dmenv run</code> on Windows. (regression introduced in <code>0.8.1</code>).</li>
+<li>Fix <a href="https://github.com/TankerHQ/dmenv/issues/49">#49</a>: return code was always 0 when using <code>dmenv run</code> on Windows. (regression introduced in <code>0.8.1</code>).</li>
 </ul>
 <h1 id="083">0.8.3<a class="headerlink" href="#083" title="Permanent link">&para;</a></h1>
 <ul>
-<li>Add documentation link to <code>Cargo.toml</code></li>
+<li>Add documentation link to <code>Cargo.toml</code>.</li>
 </ul>
 <h1 id="082">0.8.2<a class="headerlink" href="#082" title="Permanent link">&para;</a></h1>
 <ul>
-<li>Fix using non-ASCII chars in <code>dmenv run</code> command on Windows (#45).</li>
+<li>Fix <a href="https://github.com/TankerHQ/dmenv/issues/45">#45</a>: <code>dmenv env</code> can be used with non-ASCII chars on Windows.</li>
 </ul>
 <h1 id="081">0.8.1<a class="headerlink" href="#081" title="Permanent link">&para;</a></h1>
 <ul>
 <li><code>dmenv run</code> now uses <code>execv</code> from <code>libc</code>. This means the child process is killed when killing <code>dmenv</code>.
-   The previous behavior (forking a new subprocess) can be activated with the <code>--no-exec</code> option.</li>
+   The previous behavior (starting a new subprocess) can be activated with the <code>--no-exec</code> option.</li>
 </ul>
 <h1 id="080">0.8.0<a class="headerlink" href="#080" title="Permanent link">&para;</a></h1>
 <ul>
@@ -217,26 +217,26 @@
 </ul>
 <h1 id="060">0.6.0<a class="headerlink" href="#060" title="Permanent link">&para;</a></h1>
 <ul>
-<li>Run <code>setup.py develop</code> with <code>--no-deps</code></li>
-<li>Rename <code>show</code> to <code>show:venv_path</code>, add <code>show:deps</code> to display the list of dependencies</li>
+<li>Run <code>setup.py develop</code> with <code>--no-deps</code>.</li>
+<li>Rename <code>show</code> to <code>show:venv_path</code>, add <code>show:deps</code> to display the list of dependencies.</li>
 </ul>
 <h1 id="050">0.5.0<a class="headerlink" href="#050" title="Permanent link">&para;</a></h1>
 <ul>
 <li><code>dmenv init</code>: since name is required, it is now an argument, no longer an option.
   So instead of <code>dmenv init --name foo --version 0.42</code>, use <code>dmenv init foo --version 0.42</code></li>
-<li>Add a command named <code>dmenv develop</code> that justs runs <code>python setup.py develop</code> and nothing else</li>
-<li><code>dmenv install</code>: add <code>--no-upgrade-pip</code> and <code>--no-develop</code> options</li>
+<li>Add a command named <code>dmenv develop</code> that just runs <code>python setup.py develop</code> and nothing else.</li>
+<li><code>dmenv install</code>: add <code>--no-upgrade-pip</code> and <code>--no-develop</code> options.</li>
 </ul>
 <h1 id="043">0.4.3<a class="headerlink" href="#043" title="Permanent link">&para;</a></h1>
 <ul>
-<li>Add a <code>--author</code> option to <code>dmenv init</code>, used when generating the <code>setup.py</code> file</li>
-<li><code>dmenv lock</code> now exits immediately if the lock file is missing. (#12)</li>
-<li>Workaround Debian bug in pip (#15)</li>
+<li>Add a <code>--author</code> option to <code>dmenv init</code>, used when generating the <code>setup.py</code> file.</li>
+<li>Fix <a href="https://github.com/TankerHQ/dmenv/issues/12">#12</a>: <code>dmenv lock</code> now exits immediately if the lock file is missing.</li>
+<li>Workaround Debian bug in pip (See <a href="https://github.com/TankerHQ/dmenv/issues/15">#15</a> for details).</li>
 </ul>
 <h1 id="042">0.4.2<a class="headerlink" href="#042" title="Permanent link">&para;</a></h1>
 <ul>
 <li>
-<p>Write some metadata inside the <code>requirements.lock</code> file</p>
+<p>Write some metadata inside the <code>requirements.lock</code> file.</p>
 </li>
 <li>
 <p>Improve <code>dmenv run</code>:</p>
@@ -250,17 +250,17 @@
 </ul>
 <h1 id="040">0.4.0<a class="headerlink" href="#040" title="Permanent link">&para;</a></h1>
 <ul>
-<li><code>dmenv</code> no longer needs a configuration file</li>
-<li>Find the Python interpreter to use by looking in the PATH environment variable</li>
+<li><code>dmenv</code> no longer needs a configuration file.</li>
+<li>Find the Python interpreter to use by looking in the PATH environment variable.</li>
 </ul>
 <h1 id="034">0.3.4<a class="headerlink" href="#034" title="Permanent link">&para;</a></h1>
 <ul>
-<li>If <code>dmenv</code> is run <em>inside an existing virtualenv</em>, just use it. Fix #9</li>
+<li>Fix <a href="https://github.com/TankerHQ/dmenv/issues/9">#9</a>: If <code>dmenv</code> is run <em>inside an existing virtualenv</em>, just use it.</li>
 </ul>
 <h1 id="033">0.3.3<a class="headerlink" href="#033" title="Permanent link">&para;</a></h1>
 <ul>
-<li>Also upgrade pip when running <code>dmenv install</code></li>
-<li>Fix incorrect message when running <code>dmenv lock</code></li>
+<li>Also upgrade pip when running <code>dmenv install</code>.</li>
+<li>Fix incorrect message when running <code>dmenv lock</code>.</li>
 </ul>
 <h1 id="032">0.3.2<a class="headerlink" href="#032" title="Permanent link">&para;</a></h1>
 <ul>
@@ -281,7 +281,7 @@
 </ul>
 <h1 id="022">0.2.2<a class="headerlink" href="#022" title="Permanent link">&para;</a></h1>
 <ul>
-<li>Fix running dmenv on Windows</li>
+<li>Fix running dmenv on Windows.</li>
 <li>The configuration file is now read from $HOME (<code>~/.config</code> on Linux and macOS, <code>%HOME%\AppData\Local</code> on Windows).</li>
 </ul>
 <h1 id="021">0.2.1<a class="headerlink" href="#021" title="Permanent link">&para;</a></h1>
