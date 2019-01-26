@@ -42,15 +42,12 @@ impl VenvManager {
     pub fn new(project_path: std::path::PathBuf, python_info: PythonInfo) -> Result<Self, Error> {
         let lock_path = project_path.join(LOCK_FILE_NAME);
         let setup_py_path = project_path.join("setup.py");
-        let setup_cfg_path = project_path.join("setup.cfg");
-
         let venv_path = Self::get_venv_path(&project_path, &python_info);
         let paths = Paths {
             project: project_path,
             venv: venv_path,
             lock: lock_path,
             setup_py: setup_py_path,
-            setup_cfg: setup_cfg_path,
         };
         let venv_manager = VenvManager { paths, python_info };
         Ok(venv_manager)
@@ -181,11 +178,16 @@ impl VenvManager {
         Ok(())
     }
 
-    pub fn init(&self, name: &str, version: &str, author: &Option<String>) -> Result<(), Error> {
-        let path = &self.paths.setup_py;
-        if path.exists() {
+    pub fn init(
+        project_path: &std::path::PathBuf,
+        name: &str,
+        version: &str,
+        author: &Option<String>,
+    ) -> Result<(), Error> {
+        let setup_py_path = project_path.join("setup.py");
+        if setup_py_path.exists() {
             return Err(Error::FileExists {
-                path: path.to_path_buf(),
+                path: setup_py_path.to_path_buf(),
             });
         }
         let template = include_str!("setup.in.py");
@@ -196,8 +198,8 @@ impl VenvManager {
         } else {
             with_version
         };
-        std::fs::write(&path, to_write).map_err(|e| Error::WriteError {
-            path: path.to_path_buf(),
+        std::fs::write(&setup_py_path, to_write).map_err(|e| Error::WriteError {
+            path: setup_py_path.to_path_buf(),
             io_error: e,
         })?;
         print_info_1("Generated a new setup.py");
@@ -458,5 +460,4 @@ struct Paths {
     venv: std::path::PathBuf,
     lock: std::path::PathBuf,
     setup_py: std::path::PathBuf,
-    setup_cfg: std::path::PathBuf,
 }

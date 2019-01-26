@@ -40,6 +40,16 @@ pub fn run(cmd: Command) -> Result<(), Error> {
     if std::env::var("DMENV_NO_VENV_STDLIB").is_ok() {
         python_info.venv_from_stdlib = false;
     }
+
+    if let SubCommand::Init {
+        name,
+        version,
+        author,
+    } = cmd.sub_cmd
+    {
+        return VenvManager::init(&project_path, &name, &version, &author);
+    }
+
     let venv_manager = VenvManager::new(project_path, python_info)?;
     match &cmd.sub_cmd {
         SubCommand::Install {
@@ -53,11 +63,6 @@ pub fn run(cmd: Command) -> Result<(), Error> {
         }
         SubCommand::Clean {} => venv_manager.clean(),
         SubCommand::Develop {} => venv_manager.develop(),
-        SubCommand::Init {
-            name,
-            version,
-            author,
-        } => venv_manager.init(&name, &version, author),
         SubCommand::Lock {
             python_version,
             sys_platform,
@@ -81,5 +86,6 @@ pub fn run(cmd: Command) -> Result<(), Error> {
         SubCommand::ShowDeps {} => venv_manager.show_deps(),
         SubCommand::ShowVenvPath {} => venv_manager.show_venv_path(),
         SubCommand::UpgradePip {} => venv_manager.upgrade_pip(),
+        _ => Ok(()),
     }
 }
