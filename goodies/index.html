@@ -78,6 +78,8 @@
         
             <li><a class="toctree-l3" href="#dmenv_showvenv_path">dmenv show:venv_path</a></li>
         
+            <li><a class="toctree-l3" href="#dmenv_showbin_path">dmenv show:bin_path</a></li>
+        
             <li><a class="toctree-l3" href="#dmenv_showdeps">dmenv show:deps</a></li>
         
             <li><a class="toctree-l3" href="#dmenv_bump-in-lock">dmenv bump-in-lock</a></li>
@@ -136,7 +138,8 @@
             <div class="section">
               
                 <h1 id="dmenv_goodies">dmenv goodies<a class="headerlink" href="#dmenv_goodies" title="Permanent link">&para;</a></h1>
-<p><code>dmenv</code> also comes with a few commands for carrying out boring tasks:</p>
+<p><code>dmenv</code> also comes with a few commands for carrying out boring tasks. You can
+view the full list by running <code>dmenv help</code>, here are a few more details:</p>
 <h2 id="dmenv_run">dmenv run<a class="headerlink" href="#dmenv_run" title="Permanent link">&para;</a></h2>
 <p>You can use:<code>dmenv run</code> to run any binary from the virtual environment. If the program you want to run
 needs command-line options, use a <code>--</code> separator, like so:</p>
@@ -147,8 +150,13 @@ needs command-line options, use a <code>--</code> separator, like so:</p>
 <p>Tired of <code>pip</code> telling you to upgrade itself? Run <code>dmenv upgrade-pip</code> :)</p>
 <p>It's exactly the same as typing <code>dmenv run -- python -m pip install --upgrade pip</code>, but with less keystrokes :P</p>
 <h2 id="dmenv_showvenv_path">dmenv show:venv_path<a class="headerlink" href="#dmenv_showvenv_path" title="Permanent link">&para;</a></h2>
-<p>Useful to activate the virtual environment for your current shell. For instance:</p>
-<pre><code class="bash">source &quot;$(dmenv show:venv_path)/bin/activate&quot;
+<p><code>dmenv show:venv_path</code> shows the path of the current virtual environment. Nothing more, nothing less.</p>
+<h2 id="dmenv_showbin_path">dmenv show:bin_path<a class="headerlink" href="#dmenv_showbin_path" title="Permanent link">&para;</a></h2>
+<p><code>dmenv show:bin_path</code> shows the path of the virtual environment's binaries.</p>
+<p>You can use it in CI scripts like this:</p>
+<pre><code class="yaml">script:
+  - dmenv install
+  - export PATH=$(dmenv show:bin_path):$PATH
 </code></pre>
 
 <h2 id="dmenv_showdeps">dmenv show:deps<a class="headerlink" href="#dmenv_showdeps" title="Permanent link">&para;</a></h2>
