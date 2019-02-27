@@ -133,7 +133,7 @@
 <h4 id="im_on_debian_and_ive_got_errors_when_running_bdist_wheel">I'm on Debian, and I've got errors when running <code>bdist_wheel</code><a class="headerlink" href="#im_on_debian_and_ive_got_errors_when_running_bdist_wheel" title="Permanent link">&para;</a></h4>
 <p>This is an <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=917006">upstream bug</a>.
 As a workaround, you can install virtual environment with <code>python3 -m pip install virtual environment --user</code>
-and then set the <code>DMENV_NO_VENV_STDLIB</code> environment variable.</p>
+and then set the <code>DMENV_NO_VENV_STDLIB</code> environment variable to a non-empty value like <code>1</code>.</p>
 <h4 id="why_rust">Why Rust?<a class="headerlink" href="#why_rust" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Because it has excellent support for what we need: manipulate paths and run commands in a cross-platform way</li>
