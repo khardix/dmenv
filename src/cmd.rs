@@ -3,6 +3,7 @@ use regex::Regex;
 use structopt::StructOpt;
 
 use crate::error::Error;
+use crate::settings::Settings;
 
 #[derive(StructOpt)]
 #[structopt(name = "dmenv", about = "The stupid virtualenv manager")]
@@ -120,6 +121,19 @@ pub fn print_info_1(message: &str) {
 
 pub fn print_info_2(message: &str) {
     println!("{} {}", "->".blue(), message);
+}
+
+impl Command {
+    pub fn settings_from_env() -> Settings {
+        let mut res = Settings::default();
+        if std::env::var("DMENV_NO_VENV_STDLIB").is_ok() {
+            res.venv_from_stdlib = false;
+        }
+        if std::env::var("DMENV_VENV_OUTSIDE_PROJECT").is_ok() {
+            res.venv_outside_project = true;
+        }
+        res
+    }
 }
 
 #[cfg(test)]
