@@ -10,6 +10,7 @@ use crate::cmd::*;
 use crate::dependencies::FrozenDependency;
 use crate::error::*;
 use crate::lock::Lock;
+use crate::paths::Paths;
 use crate::python_info::PythonInfo;
 use crate::settings::Settings;
 
@@ -486,11 +487,4 @@ impl VenvManager {
     fn print_cmd(bin_path: &str, args: &[&str]) {
         println!("{} {} {}", "$".blue(), bin_path, args.join(" "));
     }
-}
-
-struct Paths {
-    project: std::path::PathBuf,
-    venv: std::path::PathBuf,
-    lock: std::path::PathBuf,
-    setup_py: std::path::PathBuf,
 }

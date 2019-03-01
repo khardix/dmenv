@@ -6,6 +6,7 @@ mod error;
 #[cfg(unix)]
 mod execv;
 mod lock;
+mod paths;
 mod python_info;
 mod settings;
 mod venv_manager;
