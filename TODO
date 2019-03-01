@@ -1,0 +1,2 @@
+* Remove duplicate logic in venv_manager for paths resolution
+* Use PathBuf,Path instead of prefixing everything with std::path
